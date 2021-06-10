@@ -36,7 +36,7 @@ suite("Functional Tests", function () {
         .request(server)
         .put("/travellers")
         .set("content-type", "application/json")
-        .send({surname: "Colombo"})
+        .send({ surname: "Colombo" })
         .end(function (err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.type, "application/json");
@@ -52,13 +52,13 @@ suite("Functional Tests", function () {
         .request(server)
         .put("/travellers")
         .set("content-type", "application/json")
-        .send({surname: "da Verrazzano"})
+        .send({ surname: "da Verrazzano" })
         .end((err, res) => {
           assert.equal(res.status, 200);
           assert.equal(res.type, "application/json");
           assert.equal(res.body.name, "Giovanni");
           assert.equal(res.body.surname, "da Verrazzano");
-        })
+        });
 
       done();
     });
@@ -66,9 +66,13 @@ suite("Functional Tests", function () {
 });
 
 const Browser = require("zombie");
+Browser.site = "https://fccchaiexercises.alirezaghey.repl.co";
 
 suite("Functional Tests with Zombie.js", function () {
-
+  const browser = new Browser();
+  suiteSetup((done) => {
+    return browser("/", done);
+  });
   suite('"Famous Italian Explorers" form', function () {
     // #5
     test('submit "surname" : "Colombo" - write your e2e test...', function (done) {
